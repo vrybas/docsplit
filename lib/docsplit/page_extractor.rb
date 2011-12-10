@@ -9,7 +9,7 @@ module Docsplit
       extract_options opts
       [pdfs].flatten.each do |pdf|
         pdf_name = File.basename(pdf, File.extname(pdf))
-        page_path = File.join(@output, "HEYO_#{pdf_name}_%04d.pdf")
+        page_path = File.join(@output, "#{pdf_name}_%07d.pdf")
         FileUtils.mkdir_p @output unless File.exists?(@output)
         cmd = "pdftk #{ESCAPE[pdf]} burst output #{ESCAPE[page_path]} 2>&1"
         result = `#{cmd}`.chomp
