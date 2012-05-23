@@ -41,7 +41,7 @@ module Docsplit
         raise ExtractionFailed, result if $? != 0
       else
         page_list(pages).each do |page|
-          out_file  = ESCAPE[File.join(directory, "#{basename}_#{page}.#{format}")]
+          out_file  = ESCAPE[File.join(directory, "#{basename}_#{sprintf '%07d', page.to_i}.#{format}")]
           cmd = "MAGICK_TMPDIR=#{tempdir} OMP_NUM_THREADS=2 gm convert +adjoin #{common} #{escaped_pdf}[#{page - 1}] #{out_file} 2>&1".chomp
           result = `#{cmd}`.chomp
           raise ExtractionFailed, result if $? != 0
